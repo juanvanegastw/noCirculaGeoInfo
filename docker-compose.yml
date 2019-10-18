@@ -1,5 +1,15 @@
 version: '3'
 services:
+  tweepy:
+    build:
+      context: ./twitter-scrapping
+    volumes:
+      - ./twitter-scrapping:/var/src
+    command: python /var/src/main.py
+    depends_on:
+      - "kafka"
+    env_file:
+      - ./.env_tweepy
   zookeeper:
     image: wurstmeister/zookeeper
     ports:

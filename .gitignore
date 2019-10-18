@@ -1,2 +1,4 @@
 .idea/
 venv/
+.env_tweepy
+__pycache__/
