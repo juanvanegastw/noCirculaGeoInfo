@@ -1,5 +1,8 @@
 from tweepy.streaming import StreamListener
 import json
+import logging
+
+logging.basicConfig(filename='twitter.log', filemode='w', format='%(name)s - %(levelname)s - %(message)s')
 
 
 class TwitterListener(StreamListener):
@@ -8,10 +11,10 @@ class TwitterListener(StreamListener):
         text = data.get('text', '')
         user = data.get('user', {})
         name = user.get('name', '')
-        print(text)
-        print('User: ', name)
+        logging.warning('Text', text)
+        logging.warning('User', name)
         return True
 
     def on_error(self, status):
-        print(status)
+        logging.error(status)
         return True
