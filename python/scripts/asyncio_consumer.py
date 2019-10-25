@@ -5,7 +5,7 @@ import asyncio
 import os
 from aiokafka import AIOKafkaConsumer
 
-TOPIC_NAME = 'PythonTest'
+TOPIC_NAME = 'PythonTest2'
 SERVER = os.environ['MY_IP']
 PORT = 9092
 

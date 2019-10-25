@@ -4,7 +4,7 @@
 from kafka import KafkaProducer
 import os
 
-TOPIC_NAME = 'PythonTest'
+TOPIC_NAME = 'PythonTest2'
 SERVER = os.environ['MY_IP']
 PORT = 9092
 
