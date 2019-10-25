@@ -9,11 +9,15 @@ services:
     hostname: api
     ports:
       - "5000:5000"
+    environment:
+      MY_IP: ${MY_IP}
   tweepy:
     build:
       context: ./twitter-scrapping
     volumes:
       - ./twitter-scrapping:/var/src
+    environment:
+      MY_IP: ${MY_IP}
     command: python /var/src/main.py
     depends_on:
       - "kafka"
@@ -38,3 +42,18 @@ services:
       KAFKA_ADVERTISED_PORT: 9092
     depends_on:
       - "zookeeper"
+  db:
+    build:
+      context: ./db
+    volumes:
+      - ./db:/var/src
+    command: python /var/src/app.py
+    environment:
+      MY_IP: ${MY_IP}
+    env_file:
+      - ./.env_tweepy
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+
