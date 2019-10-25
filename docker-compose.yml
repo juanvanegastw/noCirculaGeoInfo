@@ -42,16 +42,19 @@ services:
       KAFKA_ADVERTISED_PORT: 9092
     depends_on:
       - "zookeeper"
-  db:
+  kafka2mongo:
     build:
-      context: ./db
+      context: ./kafka2mongo
     volumes:
-      - ./db:/var/src
+      - ./kafka2mongo:/var/src
     command: python /var/src/app.py
     environment:
       MY_IP: ${MY_IP}
     env_file:
       - ./.env_tweepy
+    depends_on:
+      - "kafka"
+      - "mongo"
   mongo:
     image: mongo
     ports:
