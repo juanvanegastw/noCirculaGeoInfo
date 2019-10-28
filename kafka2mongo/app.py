@@ -3,6 +3,7 @@ import os
 from aiokafka import AIOKafkaConsumer
 import pymongo
 import json
+from src.toolutils import structure_message
 TOPIC_NAME = os.environ['TWITTER_TRACK']
 SERVER = os.environ['MY_IP']
 PORT = 9092
@@ -16,7 +17,11 @@ print(TOPIC_NAME)
 async def consume(consumer, consumer_id):
     await consumer.start()
     async for msg in consumer:
-        mycol.insert({'consume_id': consumer_id, 'message': msg.value})
+        structured_message = structure_message(msg.value['text'])
+        is_data = structure_message.get('hologramas', []) and structure_message.get('placas', []) and \
+                  structure_message.get('color', '')
+        if is_data:
+            mycol.insert({'consume_id': consumer_id, 'message': structured_message, 'user': msg.value['user']})
     await consumer.stop()
 
 
