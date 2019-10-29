@@ -12,7 +12,12 @@ mydb = myclient["hoynocircula"]
 
 @app.route('/')
 def hello_world():
-    return jsonify({doc['user']: doc['message'] for doc in list(mydb.entry.find())})
+    data = mydb.entry.find().sort([('date', pymongo.DESCENDING), ]).limit(1)
+    response = []
+    for entry in list(data):
+        del entry['_id']
+        response.append(entry)
+    return jsonify(response)
 
 
 if __name__ == "__main__":

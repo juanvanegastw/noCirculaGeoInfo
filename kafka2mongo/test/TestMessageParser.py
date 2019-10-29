@@ -34,3 +34,25 @@ class TestMessageParser(unittest.TestCase):
         structured_message = structure_message(message)
 
         self.assertEqual(structured_message['color'], 'amarillo')
+
+    def test_should_return_holograma_1_y_2(self):
+        message = "#HoyNoCircula Martes 29 de octubre en la #ZMVM para vehículos con #EngomadoRosa con terminación de placas 7 y 8, holograma 1 y 2."
+
+        structured_message = structure_message(message)
+
+        self.assertEqual(structured_message['hologramas'], [1, 2])
+
+    def test_should_return_placas_7_y_8(self):
+        message = "#HoyNoCircula Martes 29 de octubre en la #ZMVM para vehículos con #EngomadoRosa con terminación de placas 7 y 8, holograma 1 y 2."
+
+        structured_message = structure_message(message)
+
+        self.assertEqual(structured_message['placas'], [7, 8])
+
+    def test_should_return_color_amarillo(self):
+        message = "#HoyNoCircula Martes 29 de octubre en la #ZMVM para vehículos con #EngomadoRosa con terminación de placas 7 y 8, holograma 1 y 2."
+
+        structured_message = structure_message(message)
+
+        self.assertEqual(structured_message['color'], 'Rosa')
+

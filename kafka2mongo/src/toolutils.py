@@ -22,12 +22,12 @@ def get_holograms(message):
 
 
 def get_plates(message):
-    return find_numbers_from_string(r'de placa(\d) y (\d)', message)
+    return find_numbers_from_string(r'de placa[s]?.?(\d) y (\d)', message)
 
 
 def get_color(message):
-    color = re.findall(r'engomado (\S+) ', message)
-    return color[0] if len(color) > 0 else ''
+    color = re.findall(r'.ngomado(\s?\S+) ', message)
+    return color[0].strip() if len(color) > 0 else ''
 
 
 def find_numbers_from_string(pattern, message):

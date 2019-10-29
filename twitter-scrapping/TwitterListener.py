@@ -14,9 +14,10 @@ class TwitterListener(StreamListener):
         text = data.get('text', '')
         user = data.get('user', {})
         name = user.get('name', '')
+        data_id = data.get('id', '')
         logging.info('Text: ' + text)
         logging.info('User: ' + name)
-        message = {'user': name, 'text': text}
+        message = {'user': name, 'text': text, 'id': data_id}
         self.producer.send(self.twitter_track, message)
         return True
 
